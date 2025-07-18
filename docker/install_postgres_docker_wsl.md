@@ -15,7 +15,7 @@ docker pull postgres
 拉取镜像后，您可以使用以下命令来创建并运行一个新的 PostgreSQL 容器。
 
 ```bash
-docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+docker run --name postgres -e POSTGRES_PASSWORD=P@ssw0rd12345678 -p 5432:5432 -d postgres
 ```
 
 命令详解：
@@ -28,14 +28,14 @@ docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432
 
 ## 步骤 3: 连接到 PostgreSQL 数据库
 
-容器运行后，您可以使用任何 PostgreSQL 客户端工具连接到数据库。
+容器运行后，您可以使用任何 PostgreSQL 客户端工具连接到数据库。docker pull registry.cn-hangzhou.aliyuncs.com/library/ubuntu:latest
 
 ### 使用 `psql` 命令行工具连接
 
 您可以使用 `docker exec` 命令进入正在运行的容器，并使用 `psql` 连接到数据库。
 
 ```bash
-docker exec -it my-postgres psql -U postgres
+docker exec -it postgres psql -U postgres
 ```
 
 命令详解：
