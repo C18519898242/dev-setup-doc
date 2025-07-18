@@ -64,6 +64,33 @@ sudo docker run hello-world
 
 这个命令会下载一个测试镜像并在容器中运行它。如果一切正常，它会打印一条信息。
 
+## (推荐) 配置国内镜像加速器
+
+由于 Docker Hub 服务器在国外，直接拉取镜像可能会很慢。配置国内的镜像加速器可以显著提升下载速度。
+
+下面提供了3个目前（2025-07-19）实测可用的国内 Docker 镜像加速器地址，任选其一或全部组合都可以。直接执行以下命令即可完成配置：
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": [
+    "https://docker.xuanyuan.me",
+    "https://docker.1ms.run",
+    "https://hub-mirror.c.163.com"
+  ]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+- **docker.xuanyuan.me**：知乎、腾讯云等多方推荐，稳定且带宽足。
+- **docker.1ms.run**：毫秒镜像，免费、带搜索页面，实测可跑满家用带宽。
+- **hub-mirror.c.163.com**：网易 163 老牌镜像，长期维护，适合备用。
+
+配置完成后，可以再次运行 `docker pull hello-world` 来测试加速器是否生效。如果能秒下，即代表配置成功。
+
 ## (可选) 作为非 root 用户管理 Docker
 
 默认情况下，`docker` 命令需要 `sudo`。如果你想避免每次都输入 `sudo`，可以将你的用户添加到 `docker` 用户组。
